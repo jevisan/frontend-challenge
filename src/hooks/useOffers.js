@@ -1,11 +1,10 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
 import { Offers } from "../services/OffersService";
 
 const useOffers = () => {
     console.log("========RUNNING USEOFFERS HOOK========");
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
-    const [itemsPerPage, setItemsPerPage] = useState(10);
 
     const getOffersList = useCallback(async (currentPage, applyData) => {
         setIsLoading(true);
