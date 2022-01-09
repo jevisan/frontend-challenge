@@ -1,68 +1,51 @@
-import env from "./settings/env";
+import useOffers from "./hooks/useOffers";
 import DirectoryList from "ui/components/DirectoryList";
+import Paginator from "./ui/components/Paginator";
 import { useCallback, useEffect } from "react";
-import { Offers } from "./services/OffersService";
+import getRootDir from "parcel/lib/utils/getRootDir";
 
 export default function App() {
+    console.log("========APP COMPONENT========");
     const [offers, setOffers] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+    const [pages, setPages] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
 
-    const fetchOffersList = useCallback(async () => {
-        setIsLoading(true);
-        setError(null);
-        try {
-            const response = await Offers();
-            if (!response.ok) {
-                throw new Error("Something went wrong! :(");
-            }
+    const { isLoading, error, getOffersList: fetchOffers } = useOffers();
 
-            const data = await response.json();
-
-            const loadedOffers = [];
-            for (const key in data.data) {
-                loadedOffers.push({
-                    id: key,
-                    name: data.data[key].name,
-                    status: data.data[key].status,
-                    cashback: data.data[key].dv_cashback,
-                    image: data.data[key].media,
-                    category: data.data[key].dv_category,
-                    location: data.data[key].dv_latlng,
-                    rating: data.data[key].rating,
-                    priceLevel: data.data[key].price_level,
-                    popularity: data.data[key].popularity,
-                });
-            }
-
-            setOffers(loadedOffers);
-        } catch (error) {
-            console.log(error);
-            setError(error.message);
-        }
-        setIsLoading(false);
+    const getOffersHandler = useCallback((offersData, pages) => {
+        setOffers(offersData);
+        setPages(pages);
     }, []);
 
-    // Loading offers list first time page loads
+    const changePageHandler = page => {
+        setCurrentPage(page);
+        fetchOffers(page, getOffersHandler);
+    };
+
     useEffect(() => {
-        fetchOffersList();
-    }, [fetchOffersList]);
+        fetchOffers(1, getOffersHandler);
+    }, [fetchOffers, getOffersHandler]);
 
-    let content = offers.length ? (
-        <DirectoryList offerList={offers} />
-    ) : (
-        <p>No offers found :(</p>
+    return (
+        <div className="container mx-auto">
+            {isLoading ? (
+                <p className="py-4 text-lg text-center">
+                    Loading latest offers...
+                </p>
+            ) : (
+                <>
+                    <DirectoryList
+                        offerList={offers}
+                        pageLimit={3}
+                        dataLimit={10}
+                    />
+                    <Paginator
+                        pages={pages}
+                        currentPage={currentPage}
+                        onPageChange={changePageHandler}
+                    />
+                </>
+            )}
+        </div>
     );
-
-    if (error) {
-        content = <p>{error}</p>;
-    }
-
-    if (isLoading) {
-        content = (
-            <p className="py-4 text-lg text-center">Loading latest offers...</p>
-        );
-    }
-
-    return <div className="container mx-auto">{content}</div>;
 }
