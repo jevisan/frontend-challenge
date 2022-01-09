@@ -68,6 +68,7 @@
         "parcel-plugin-less-js-enabled": "^1.0.2",
         "prettier": "^2.0.5",
         "pretty-quick": "^2.0.1",
+        "sass": "^1.47.0",
         "stylelint": "^13.3.3",
         "stylelint-config-rational-order": "^0.1.2",
         "stylelint-config-recommended": "^3.0.0",

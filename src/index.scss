@@ -1,1 +1,50 @@
 // This is a sample stylesheet, if you're going to use it don't forget to import it.
+
+// FONTS IMPORT
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Poppins:wght@400;700&display=swap");
+
+// THEMING
+$primary-color: #2e58ff;
+$black: rgb(0, 0, 0);
+$white: rgb(255, 255, 255);
+$gray-1: rgb(164, 164, 164);
+$red-1: rgb(255, 235, 235);
+$red-2: rgb(255, 64, 64);
+
+.title {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    color: $primary-color;
+}
+
+.regular-text {
+    font-family: "Poppins", sans-serif;
+}
+
+.primary-bg {
+    background-color: $primary-color;
+    color: $white;
+}
+
+// ANIMATIONS
+.fade-in-up {
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    -webkit-animation-duration: 1s;
+    -webkit-animation-fill-mode: both;
+    opacity: 0;
+    animation-name: fadeInUp;
+    -webkit-animation-name: fadeInUp;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translate3d(0, 40px, 0);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate3d(0, 0, 0);
+    }
+}
