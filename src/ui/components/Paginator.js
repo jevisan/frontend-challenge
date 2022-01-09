@@ -1,5 +1,3 @@
-import { useEffect } from "react";
-
 const Paginator = ({ pages, currentPage, ...props }) => {
     console.log("========PAGINATOR COMPONENT========");
 
