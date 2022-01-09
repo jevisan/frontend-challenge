@@ -2,14 +2,12 @@ import useOffers from "./hooks/useOffers";
 import DirectoryList from "ui/components/DirectoryList";
 import Paginator from "./ui/components/Paginator";
 import { useCallback, useEffect } from "react";
-import getRootDir from "parcel/lib/utils/getRootDir";
 
 export default function App() {
     console.log("========APP COMPONENT========");
     const [offers, setOffers] = useState([]);
     const [pages, setPages] = useState(1);
     const [currentPage, setCurrentPage] = useState(1);
-
     const { isLoading, error, getOffersList: fetchOffers } = useOffers();
 
     const getOffersHandler = useCallback((offersData, pages) => {
