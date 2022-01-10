@@ -53,7 +53,7 @@ const Paginator = ({ pages, currentPage, ...props }) => {
                 ))}
                 <li>
                     <button
-                        class={`flex items-center justify-center w-10 h-10 text-indigo-600 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-indigo-100 ${
+                        className={`flex items-center justify-center w-10 h-10 text-indigo-600 transition-colors duration-150 bg-white rounded-full focus:shadow-outline hover:bg-indigo-100 ${
                             currentPage === pages ? "cursor-not-allowed" : ""
                         }`}
                         disabled={currentPage === pages ? "true" : ""}

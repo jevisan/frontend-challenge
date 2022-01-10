@@ -92,7 +92,6 @@
     "husky": {
         "hooks": {
             "pre-commit": "eslint src --fix; pretty-quick --staged; stylelint src/**/*.scss --fix",
-            "pre-push": "npm run test",
             "post-merge": "npm install",
             "post-checkout": "npm install"
         }
